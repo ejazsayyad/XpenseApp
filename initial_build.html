@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></link>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script
+			defer
+			src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"
+			integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP"
+			crossorigin="anonymous"
+        ></script>
+    <title>Wallet</title>
+
+    <style>
+        body
+        {
+              display: flex;
+              justify-content: center;
+              flex-direction: column; 
+              align-items: center;
+              height: 100vh; 
+        }    
+    </style>
+
+    
+</head>
+<body>
+    <h1>Total Expense</h1>
+<h1 id="heading"></h1>
+<h3>Amount=></h3>
+<input type="text" id="ip">
+<h3>Description=></h3>
+<input type="text" id="desc">
+<br>    
+<button id="btn1">
+    +
+</button>
+<div >
+    <ul class="list-group" id="exptable">
+
+    </ul>
+</div>
+
+
+<li class="list-group-item d-flex justify-content-between">
+    <div class="d-flex flex-column">
+        Static
+        ${item.des}
+        <small class="text-muted">March 11, 2019</small>
+    </div>
+    <div>
+        <span class="px-5">
+        ${item.amount}
+        </span>
+        <button type="button" class="btn btn-outline-danger btn-sm">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+    </div>
+</li>
+<script>
+   
+
+    let expense=0;
+    const element=document.querySelector("#btn1");
+    const headingele=document.querySelector("#heading");
+    const totalexp=[];
+
+    const exptableele = document.querySelector("#exptable");
+
+    function addexpense(){
+        const inp=document.querySelector("#ip");//first
+        const descele=document.getElementById("desc");//second
+
+        const textinput=inp.value;
+        const intinput=parseInt(textinput);//changing text to int
+//-----------------------------------------------------------------------------------------------------
+       
+
+
+        const desc1= descele.value;
+       
+       //creating an object and putting those value
+       const expenditure={}; // #object in JS
+        expenditure.des=desc1;
+        expenditure.amount=intinput;
+
+
+
+
+        // //printing first
+        // console.log({expenditure})
+        //pushing it to an array
+        totalexp.push(expenditure)
+
+        expense=expense+intinput;//adding it to total
+
+        //
+        const sum=expense;
+        const sometext=`Total: ${sum}`;
+
+
+        headingele.textContent=sometext;//showing it on heading 
+        //console.log(expenditure)
+        
+         const expendituretotalHTML= totalexp.map(
+             function(item)
+             {
+                // console.log(item)
+
+                return
+                `
+                <li class="list-group-item d-flex justify-content-between">
+                <div class="d-flex flex-column">
+        
+                    ${item.des}
+                    <small class="text-muted">March 11, 2019</small>
+                </div>
+        <div>
+                <span class="px-5">
+                    ${item.amount}
+                </span>
+            <button type="button" class="btn btn-outline-danger btn-sm">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        </div>
+    </li>
+                `;
+
+
+                // return `<div> ${item.amount} == for => ${item.des} </div>`
+             }
+         ).join("");//join is for combining and returning it to page without comma (it concatenates array of string) 
+            
+        console.log(expendituretotalHTML);
+       
+        exptableele.innerHTML=expendituretotalHTML;
+             
+        
+        //console.log(totalexp)
+        //console.table(totalexp)
+    }
+
+
+    //adding event listener MOSTLY Used :args ("event",function,false)
+    element.addEventListener("click",addexpense,false);
+
+  
+    
+
+
+</script>
+    
+</body>
+</html>
